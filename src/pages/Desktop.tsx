@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { apps, wallpapers } from "~/configs";
 import { minMarginY } from "~/utils";
 import type { MacActions } from "~/types";
+import AppWindow from "~/components/AppWindow";
+import TopBar from "~/components/menus/TopBar";
+import Spotlight from "~/components/Spotlight";
+import Launchpad from "~/components/Launchpad";
+import Dock from "~/components/dock/Dock";
+import DesktopFile from "~/components/files/DesktopFile";
+import FileViewer from "~/components/files/FileViewer";
+import { desktopFiles } from "~/types/configs/files";
+import type { DesktopFile as DesktopFileType } from "~/types/desktopFile";
 
 interface DesktopState {
   showApps: {
@@ -21,6 +30,8 @@ interface DesktopState {
   currentTitle: string;
   hideDockAndTopbar: boolean;
   spotlight: boolean;
+  selectedFile: string | null;
+  viewingFile: DesktopFileType | null;
 }
 
 export default function Desktop(props: MacActions) {
@@ -33,7 +44,9 @@ export default function Desktop(props: MacActions) {
     showLaunchpad: false,
     currentTitle: "Finder",
     hideDockAndTopbar: false,
-    spotlight: false
+    spotlight: false,
+    selectedFile: null,
+    viewingFile: null
   } as DesktopState);
 
   const [spotlightBtnRef, setSpotlightBtnRef] =
@@ -202,6 +215,26 @@ export default function Desktop(props: MacActions) {
     }
   };
 
+  const handleFileSelect = (fileId: string) => {
+    setState({ ...state, selectedFile: fileId });
+  };
+
+  const handleFileOpen = (file: DesktopFileType) => {
+    console.log("Opening file:", file); // Debug log
+    setState((prevState) => ({ ...prevState, viewingFile: file }));
+  };
+
+  const closeFileViewer = () => {
+    setState({ ...state, viewingFile: null });
+  };
+
+  const handleDesktopClick = (e: React.MouseEvent) => {
+    // Deselect file if clicking on empty desktop area
+    if (e.target === e.currentTarget) {
+      setState((prevState) => ({ ...prevState, selectedFile: null }));
+    }
+  };
+
   const renderAppWindows = () => {
     return apps.map((app) => {
       if (app.desktop && state.showApps[app.id]) {
@@ -242,6 +275,7 @@ export default function Desktop(props: MacActions) {
         backgroundImage: `url(${dark ? wallpapers.night : wallpapers.day})`,
         filter: `brightness( ${(brightness as number) * 0.7 + 50}% )`
       }}
+      onClick={handleDesktopClick}
     >
       {/* Top Menu Bar */}
       <TopBar
@@ -255,10 +289,28 @@ export default function Desktop(props: MacActions) {
         setSpotlightBtnRef={setSpotlightBtnRef}
       />
 
+      {/* Desktop Files */}
+      <div className="absolute inset-0 z-5" style={{ pointerEvents: "auto" }}>
+        {desktopFiles.map((file) => (
+          <DesktopFile
+            key={file.id}
+            {...file}
+            selected={state.selectedFile === file.id}
+            onSelect={handleFileSelect}
+            onDoubleClick={handleFileOpen}
+          />
+        ))}
+      </div>
+
       {/* Desktop Apps */}
       <div className="window-bound z-10 absolute" style={{ top: minMarginY }}>
         {renderAppWindows()}
       </div>
+
+      {/* File Viewer */}
+      {state.viewingFile && (
+        <FileViewer file={state.viewingFile} onClose={closeFileViewer} />
+      )}
 
       {/* Spotlight */}
       {state.spotlight && (
