@@ -12,7 +12,7 @@ import "~/styles/index.css";
 
 export default function App() {
   const [login, setLogin] = useState<boolean>(false);
-  const [booting, setBooting] = useState<boolean>(false);
+  const [booting, setBooting] = useState<boolean>(true);
   const [restart, setRestart] = useState<boolean>(false);
   const [sleep, setSleep] = useState<boolean>(false);
 
@@ -53,7 +53,7 @@ export default function App() {
     );
   } else {
     return (
-      <Login
+      <Desktop
         setLogin={setLogin}
         shutMac={shutMac}
         sleepMac={sleepMac}

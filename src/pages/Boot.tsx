@@ -29,7 +29,7 @@ export default function Boot({ restart, sleep, setBooting }: BootProps) {
   );
 
   const handleClick = () => {
-    if (sleep) setBooting(false);
+    if (sleep) setLoading(true);
     else if (restart || loading) return;
     else setLoading(true);
   };
