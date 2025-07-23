@@ -36,7 +36,15 @@ export default function Boot({ restart, sleep, setBooting }: BootProps) {
 
   return (
     <div className="size-full bg-black flex-center" onClick={handleClick}>
-      <div className="i-fa-brands:apple text-white -mt-4 size-20 sm:size-24" />
+      <div className="flex flex-col items-center justify-center">
+        <img
+          src="/img/ui/flag.gif"
+          alt="Boot logo"
+          className="w-32 h-24 sm:w-40 sm:h-32 object-contain mb-0.5"
+        />
+        <span className="text-white text-sm mb-4 -mt-6">(flag)</span>
+      </div>
+
       {loading && (
         <div
           className="absolute top-1/2 inset-x-0 w-56 h-1 sm:h-1.5 bg-gray-500 rounded overflow-hidden"
@@ -56,7 +64,7 @@ export default function Boot({ restart, sleep, setBooting }: BootProps) {
           m="t-16 sm:t-20 x-auto"
           text="sm gray-200 center"
         >
-          Click to {sleep ? "wake up" : "boot"}
+          Click to enter
         </div>
       )}
     </div>
