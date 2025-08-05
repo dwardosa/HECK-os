@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useStore } from "~/stores";
 import { apps, wallpapers } from "~/configs";
 import { minMarginY } from "~/utils";
 import type { MacActions } from "~/types";
@@ -10,7 +11,7 @@ import Dock from "~/components/dock/Dock";
 import DesktopFile from "~/components/files/DesktopFile";
 import FileViewer from "~/components/files/FileViewer";
 import { desktopFiles } from "~/types/configs/files";
-import type { DesktopFile as DesktopFileType } from "~/types/desktopFile";
+import type { DesktopFile as DesktopFileType } from "~/types/DesktopFile";
 
 interface DesktopState {
   showApps: {
@@ -216,19 +217,30 @@ export default function Desktop(props: MacActions) {
   };
 
   const handleFileSelect = (fileId: string) => {
+    console.log("handleFileSelect called with:", fileId);
     setState({ ...state, selectedFile: fileId });
   };
 
   const handleFileOpen = (file: DesktopFileType) => {
-    console.log("Opening file:", file); // Debug log
-    setState((prevState) => ({ ...prevState, viewingFile: file }));
+    console.log("handleFileOpen called with file:", file); // Debug log
+    // Ensure we're updating the state with the file object
+    setState((prevState) => ({
+      ...prevState,
+      viewingFile: file
+    }));
   };
 
   const closeFileViewer = () => {
+    console.log("Closing file viewer");
     setState({ ...state, viewingFile: null });
   };
 
   const handleDesktopClick = (e: React.MouseEvent) => {
+    if (state.viewingFile) {
+      closeFileViewer();
+      console.log("Closing file viewer on desktop click");
+    }
+    console.log("Desktop clicked:", e.target); // Debug log
     // Deselect file if clicking on empty desktop area
     if (e.target === e.currentTarget) {
       setState((prevState) => ({ ...prevState, selectedFile: null }));
@@ -290,14 +302,16 @@ export default function Desktop(props: MacActions) {
       />
 
       {/* Desktop Files */}
-      <div className="absolute inset-0 z-5" style={{ pointerEvents: "auto" }}>
+      <div className="absolute inset-0 z-100" style={{ pointerEvents: "auto" }}>
         {desktopFiles.map((file) => (
           <DesktopFile
             key={file.id}
             {...file}
             selected={state.selectedFile === file.id}
-            onSelect={handleFileSelect}
-            onDoubleClick={handleFileOpen}
+            onFileClick={(fileData) => {
+              console.log("Double-click handler in Desktop with:", fileData);
+              handleFileOpen(fileData);
+            }}
           />
         ))}
       </div>

@@ -1,10 +1,9 @@
 import React from "react";
-import type { DesktopFile } from "~/types/desktopFile";
+import type { DesktopFile } from "~/types/DesktopFile";
 
 interface DesktopFileProps extends DesktopFile {
-  onDoubleClick: (file: DesktopFile) => void;
+  onFileClick: (file: DesktopFile) => void;
   selected: boolean;
-  onSelect: (id: string) => void;
 }
 
 export default function DesktopFile({
@@ -16,22 +15,16 @@ export default function DesktopFile({
   x,
   y,
   icon,
-  onDoubleClick,
-  selected,
-  onSelect
+  onFileClick,
+  selected
 }: DesktopFileProps) {
-  const handleDoubleClick = () => {
-    onDoubleClick({ id, name, type, content, imageSrc, x, y, icon });
-  };
-
   return (
     <div
       className={`absolute flex flex-col items-center cursor-pointer select-none p-2 rounded ${
         selected ? "bg-blue-500 bg-opacity-50" : "hover:bg-white hover:bg-opacity-10"
       }`}
       style={{ left: x, top: y }}
-      onDoubleClick={handleDoubleClick}
-      onClick={() => onSelect(id)}
+      onClick={() => onFileClick({ id, name, type, content, imageSrc, x, y, icon })}
     >
       <img src={icon} alt={name} className="w-12 h-12 mb-1" draggable={false} />
       <span className="text-white text-xs text-center max-w-16 truncate">{name}</span>

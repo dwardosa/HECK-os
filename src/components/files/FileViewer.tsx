@@ -1,5 +1,5 @@
 import React from "react";
-import type { DesktopFile } from "~/types/desktop";
+import type { DesktopFile } from "~/types/DesktopFile";
 
 interface FileViewerProps {
   file: DesktopFile;
@@ -7,6 +7,8 @@ interface FileViewerProps {
 }
 
 export default function FileViewer({ file, onClose }: FileViewerProps) {
+  console.log("FileViewer rendering with file:", file);
+
   const renderContent = () => {
     switch (file.type) {
       case "text":
@@ -43,7 +45,7 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
           <h3 className="text-lg font-semibold text-black">{file.name}</h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-xl font-bold"
+            className="text-gray-500 hover:text-gray-700 z-100 text-xl font-bold"
           >
             ×
           </button>
