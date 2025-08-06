@@ -260,7 +260,7 @@ export default function Desktop(props: MacActions) {
           aspectRatio: app.aspectRatio,
           x: app.x,
           y: app.y,
-          z: app.id === 'terminal' ? state.appsZ[app.id] + 50 : state.appsZ[app.id],
+          z: state.appsZ[app.id],
           max: state.maxApps[app.id],
           min: state.minApps[app.id],
           close: closeApp,
@@ -302,7 +302,7 @@ export default function Desktop(props: MacActions) {
       />
 
       {/* Desktop Files */}
-      <div className="absolute inset-0 z-12" style={{ pointerEvents: "auto" }}>
+      <div className="absolute inset-0" style={{ pointerEvents: "auto" }}>
         {desktopFiles.map((file) => (
           <DesktopFile
             key={file.id}
@@ -319,7 +319,7 @@ export default function Desktop(props: MacActions) {
       {/* Terminal Backdrop Blur */}
       {state.showApps.terminal && (
         <div 
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-12"
           style={{
             backdropFilter: 'blur(8px)',
             backgroundColor: 'rgba(0, 0, 0, 0.1)',

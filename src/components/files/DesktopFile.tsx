@@ -20,7 +20,7 @@ export default function DesktopFile({
 }: DesktopFileProps) {
   return (
     <div
-      className={`absolute flex flex-col items-center cursor-pointer select-none p-2 rounded ${
+      className={`absolute z-60 flex flex-col items-center cursor-pointer select-none p-2 rounded ${
         selected ? "bg-blue-500 bg-opacity-50" : "hover:bg-white hover:bg-opacity-10"
       }`}
       style={{ left: x, top: y }}
