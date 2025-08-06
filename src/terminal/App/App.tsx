@@ -1,27 +1,11 @@
 import React, { Component, createRef, RefObject } from 'react'
-import commands from '../../terminal/commands/commands'
-import { projects, github_username } from '../../terminal/config'
-import InputManager from '../../terminal/InputManager/InputManager'
-import styles from '../../terminal/App/App.module.scss'
-import '../../terminal/index.scss'
+import styles from './App.module.scss'
+import commands from '../commands/commands'
+import { projects, github_username } from '../config'
+import { AppState } from '../typings'
+import InputManager from '../InputManager/InputManager'
 
-interface AppState {
-	record: Array<{ command: string; output: JSX.Element }>
-	commands: Map<string, Command>
-	projectDataLoaded: boolean
-	userDataLoaded: boolean
-	projectData?: any
-	userData?: any
-}
-
-interface Command {
-	name: string
-	icon: string
-	description: string
-	execute(app: Component<{}, AppState>): JSX.Element | void
-}
-
-class Terminal extends Component<{}, AppState> {
+class App extends Component<{}, AppState> {
 	mainRef: RefObject<any>
 	handleExecute: (arg: string) => void
 
@@ -95,39 +79,45 @@ class Terminal extends Component<{}, AppState> {
 	render() {
 		const { record } = this.state
 		return (
-			<div 
-				ref={this.mainRef} 
-				className={styles.mainContent} 
-				style={{ 
-					height: '100%', 
-					padding: '10px',
-					backgroundColor: 'rgba(36, 39, 58, 0.95)',
-					backdropFilter: 'blur(10px)'
-				}}
-			>
-				{record.map(({ command, output }, index) => (
-					<div key={index}>
-						<span className={styles.promptPrefix}>
-							<span>{github_username}</span>@
-							<span>heck:</span>
-							~${' '}
-							<span
-								className={
-									commands.has(command)
-										? styles.validCommand
-										: styles.invalidCommand
-								}
-							>
-								{command}
-							</span>
-						</span>
-						<div>{output}</div>
+			<div className={styles.wrapper}>
+				<div className={styles.window}>
+					<div className={styles.titleBar}>
+						<div className={styles.dotHolder}>
+							<div className={styles.dot}></div>
+							<div className={styles.dot}></div>
+							<div className={styles.dot}></div>
+						</div>
+						<div className={styles.titleHeader}>
+							<i className="fa-fw fas fa-code"></i>
+							HECK - v1.0.1
+						</div>
 					</div>
-				))}
-				<InputManager handleExecute={this.handleExecute} />
+					<div ref={this.mainRef} className={styles.mainContent}>
+						{record.map(({ command, output }, index) => (
+							<div key={index}>
+								<span className={styles.promptPrefix}>
+									<span>{github_username}</span>@
+									<span>heck:</span>
+									~${' '}
+									<span
+										className={
+											commands.has(command)
+												? styles.validCommand
+												: styles.invalidCommand
+										}
+									>
+										{command}
+									</span>
+								</span>
+								<div>{output}</div>
+							</div>
+						))}
+						<InputManager handleExecute={this.handleExecute} />
+					</div>
+				</div>
 			</div>
 		)
 	}
 }
 
-export default Terminal
+export default App
