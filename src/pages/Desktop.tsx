@@ -260,7 +260,7 @@ export default function Desktop(props: MacActions) {
           aspectRatio: app.aspectRatio,
           x: app.x,
           y: app.y,
-          z: state.appsZ[app.id],
+          z: app.id === 'terminal' ? state.appsZ[app.id] + 50 : state.appsZ[app.id],
           max: state.maxApps[app.id],
           min: state.minApps[app.id],
           close: closeApp,
@@ -316,8 +316,20 @@ export default function Desktop(props: MacActions) {
         ))}
       </div>
 
+      {/* Terminal Backdrop Blur */}
+      {state.showApps.terminal && (
+        <div 
+          className="fixed inset-0 z-40"
+          style={{
+            backdropFilter: 'blur(8px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            pointerEvents: 'none'
+          }}
+        />
+      )}
+
       {/* Desktop Apps */}
-      <div className="window-bound z-10 absolute" style={{ top: minMarginY }}>
+      <div className="window-bound absolute" style={{ top: minMarginY, zIndex: 50 }}>
         {renderAppWindows()}
       </div>
 
