@@ -51,28 +51,20 @@ const CCMIcon = ({ size }: { size: number }) => {
 
 interface TopBarProps extends MacActions {
   title: string;
-  setSpotlightBtnRef: (value: React.RefObject<HTMLDivElement>) => void;
   hide: boolean;
-  toggleSpotlight: () => void;
 }
 
 interface TopBarState {
   date: Date;
-  showControlCenter: boolean;
-  showWifiMenu: boolean;
   showAppleMenu: boolean;
 }
 
 const TopBar = (props: TopBarProps) => {
   const appleBtnRef = useRef<HTMLDivElement>(null);
-  const controlCenterBtnRef = useRef<HTMLDivElement>(null);
-  const wifiBtnRef = useRef<HTMLDivElement>(null);
   const spotlightBtnRef = useRef<HTMLDivElement>(null);
 
   const [state, setState] = useState<TopBarState>({
     date: new Date(),
-    showControlCenter: false,
-    showWifiMenu: false,
     showAppleMenu: false
   });
 
@@ -87,7 +79,7 @@ const TopBar = (props: TopBarProps) => {
     volume: state.volume,
     wifi: state.wifi
   }));
-  const { toggleFullScreen, setVolume, setBrightness } = useStore((state) => ({
+  const { toggleFullScreen } = useStore((state) => ({
     toggleFullScreen: state.toggleFullScreen,
     setVolume: state.setVolume,
     setBrightness: state.setBrightness
@@ -110,33 +102,10 @@ const TopBar = (props: TopBarProps) => {
     toggleFullScreen(isFull);
   }, [winWidth, winHeight]);
 
-  const setAudioVolume = (value: number): void => {
-    setVolume(value);
-    controls.volume(value / 100);
-  };
-
-  const setSiteBrightness = (value: number): void => {
-    setBrightness(value);
-  };
-
-  const toggleControlCenter = (): void => {
-    setState({
-      ...state,
-      showControlCenter: !state.showControlCenter
-    });
-  };
-
   const toggleAppleMenu = (): void => {
     setState({
       ...state,
       showAppleMenu: !state.showAppleMenu
-    });
-  };
-
-  const toggleWifiMenu = (): void => {
-    setState({
-      ...state,
-      showWifiMenu: !state.showWifiMenu
     });
   };
 
@@ -201,46 +170,6 @@ const TopBar = (props: TopBarProps) => {
         <TopBarItem hideOnMobile={true}>
           <Battery />
         </TopBarItem>
-        <TopBarItem
-          hideOnMobile={true}
-          forceHover={state.showWifiMenu}
-          onClick={toggleWifiMenu}
-          ref={wifiBtnRef}
-        >
-          {wifi ? (
-            <span className="i-material-symbols:wifi text-lg" />
-          ) : (
-            <span className="i-material-symbols:wifi-off text-lg" />
-          )}
-        </TopBarItem>
-        <TopBarItem ref={spotlightBtnRef} onClick={props.toggleSpotlight}>
-          <span className="i-bx:search text-[17px]" />
-        </TopBarItem>
-        <TopBarItem
-          forceHover={state.showControlCenter}
-          onClick={toggleControlCenter}
-          ref={controlCenterBtnRef}
-        >
-          <CCMIcon size={16} />
-        </TopBarItem>
-
-        {/* Open this when clicking on Wifi button */}
-        {state.showWifiMenu && (
-          <WifiMenu toggleWifiMenu={toggleWifiMenu} btnRef={wifiBtnRef} />
-        )}
-
-        {/* Open this when clicking on Control Center button */}
-        {state.showControlCenter && (
-          <ControlCenterMenu
-            playing={audioState.playing}
-            toggleAudio={controls.toggle}
-            setVolume={setAudioVolume}
-            setBrightness={setSiteBrightness}
-            toggleControlCenter={toggleControlCenter}
-            btnRef={controlCenterBtnRef}
-          />
-        )}
-
         <TopBarItem>
           <span>{format(state.date, "eee MMM d")}</span>
           <span>{format(state.date, "h:mm aa")}</span>
