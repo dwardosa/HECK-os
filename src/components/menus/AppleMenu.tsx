@@ -26,16 +26,7 @@ export default function AppleMenu({
       <MenuItemGroup>
         <MenuItem>About This Mac</MenuItem>
       </MenuItemGroup>
-      {/* <MenuItemGroup>
-        <MenuItem>System Preferences...</MenuItem>
-        <MenuItem>App Store...</MenuItem>
-      </MenuItemGroup>
-      <MenuItemGroup>
-        <MenuItem>Recent Items</MenuItem>
-      </MenuItemGroup>
-      <MenuItemGroup>
-        <MenuItem>Force Quit...</MenuItem>
-      </MenuItemGroup> */}
+      
       <MenuItemGroup>
         <MenuItem onClick={sleep}>Sleep</MenuItem>
         <MenuItem onClick={restart}>Restart...</MenuItem>
