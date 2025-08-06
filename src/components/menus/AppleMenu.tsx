@@ -26,7 +26,7 @@ export default function AppleMenu({
       <MenuItemGroup>
         <MenuItem>About This Mac</MenuItem>
       </MenuItemGroup>
-      <MenuItemGroup>
+      {/* <MenuItemGroup>
         <MenuItem>System Preferences...</MenuItem>
         <MenuItem>App Store...</MenuItem>
       </MenuItemGroup>
@@ -35,7 +35,7 @@ export default function AppleMenu({
       </MenuItemGroup>
       <MenuItemGroup>
         <MenuItem>Force Quit...</MenuItem>
-      </MenuItemGroup>
+      </MenuItemGroup> */}
       <MenuItemGroup>
         <MenuItem onClick={sleep}>Sleep</MenuItem>
         <MenuItem onClick={restart}>Restart...</MenuItem>
@@ -43,7 +43,7 @@ export default function AppleMenu({
       </MenuItemGroup>
       <MenuItemGroup border={false}>
         <MenuItem onClick={logout}>Lock Screen</MenuItem>
-        <MenuItem onClick={logout}>Log Out Xiaohan Zou...</MenuItem>
+        <MenuItem onClick={logout}>Log Out HECK.os...</MenuItem>
       </MenuItemGroup>
     </div>
   );

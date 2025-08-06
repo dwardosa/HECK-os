@@ -302,7 +302,7 @@ export default function Desktop(props: MacActions) {
       />
 
       {/* Desktop Files */}
-      <div className="absolute inset-0 z-100" style={{ pointerEvents: "auto" }}>
+      <div className="absolute inset-0 z-11" style={{ pointerEvents: "auto" }}>
         {desktopFiles.map((file) => (
           <DesktopFile
             key={file.id}
