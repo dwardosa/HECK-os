@@ -23,6 +23,7 @@ declare global {
   const TopBar: typeof import('./components/menus/TopBar')['default']
   const Typora: typeof import('./components/apps/Typora')['default']
   const VSCode: typeof import('./components/apps/VSCode')['default']
+  const WaterCooler: typeof import('./components/files/WaterCooler')['default']
   const Window: typeof import('./components/Window')['default']
   const createRef: typeof import('react')['createRef']
   const forwardRef: typeof import('react')['forwardRef']

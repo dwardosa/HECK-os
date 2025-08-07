@@ -10,6 +10,7 @@ import Launchpad from "~/components/Launchpad";
 import Dock from "~/components/dock/Dock";
 import DesktopFile from "~/components/files/DesktopFile";
 import FileViewer from "~/components/files/FileViewer";
+import WaterCooler from "~/components/files/WaterCooler";
 import { desktopFiles } from "~/types/configs/files";
 import type { DesktopFile as DesktopFileType } from "~/types/DesktopFile";
 
@@ -303,7 +304,9 @@ export default function Desktop(props: MacActions) {
 
       {/* Desktop Files */}
       <div className="absolute inset-0" style={{ pointerEvents: "auto" }}>
-        {desktopFiles.map((file) => (
+        {desktopFiles
+          .filter(file => file.id !== 'water-cooler') // Exclude water-cooler from regular files
+          .map((file) => (
           <DesktopFile
             key={file.id}
             {...file}
@@ -315,6 +318,9 @@ export default function Desktop(props: MacActions) {
           />
         ))}
       </div>
+
+      {/* Water Cooler - Special Component */}
+      <WaterCooler />
 
       {/* Terminal Backdrop Blur */}
       {state.showApps.terminal && (

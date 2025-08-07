@@ -1,7 +1,7 @@
 export interface DesktopFile {
   id: string;
   name: string;
-  type: "text" | "image" | "folder";
+  type: "text" | "image" | "folder" | "special";
   content?: string; // for text files
   imageSrc?: string; // for image files
   x: number; // position on desktop

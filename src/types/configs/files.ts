@@ -26,5 +26,13 @@ export const desktopFiles: DesktopFile[] = [
     x: 50,
     y: 300,
     icon: "/img/icons/folder.png"
+  },
+  {
+    id: "water-cooler",
+    name: "Water Cooler",
+    type: "special",
+    x: -100, // Will be positioned via CSS
+    y: -100, // Will be positioned via CSS
+    icon: "/img/icons/terminal.png" // Using terminal icon temporarily
   }
 ];
