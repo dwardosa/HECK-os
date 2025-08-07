@@ -23,7 +23,7 @@ export default function WaterCooler({ onHover }: WaterCoolerProps) {
 
   return (
     <div 
-      className="fixed bottom-32 right-8 z-60 cursor-pointer select-none transition-opacity duration-500 hover:opacity-100 opacity-75"
+      className="fixed bottom-10 right-8 z-60 cursor-pointer select-none transition-opacity duration-500 hover:opacity-100 opacity-75"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

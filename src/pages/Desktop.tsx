@@ -11,6 +11,7 @@ import Dock from "~/components/dock/Dock";
 import DesktopFile from "~/components/files/DesktopFile";
 import FileViewer from "~/components/files/FileViewer";
 import WaterCooler from "~/components/files/WaterCooler";
+import TreeFall from "~/components/TreeFall";
 import { desktopFiles } from "~/types/configs/files";
 import type { DesktopFile as DesktopFileType } from "~/types/DesktopFile";
 
@@ -290,6 +291,9 @@ export default function Desktop(props: MacActions) {
       }}
       onClick={handleDesktopClick}
     >
+      {/* Tree Fall Animation */}
+      <TreeFall />
+
       {/* Top Menu Bar */}
       <TopBar
         title={state.currentTitle}
