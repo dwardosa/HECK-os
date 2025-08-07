@@ -13,7 +13,7 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
     // Start animation after 3 seconds
     const timer = setTimeout(() => {
       setAnimationStarted(true);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -38,7 +38,7 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
   };
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none  z-70">
       {/* Hard Drive - Behind the tree */}
       {showHardDrive && (
         <div 
@@ -48,7 +48,7 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
           onClick={handleHardDriveClick}
         >
           {/* Hard Drive Icon/Image */}
-          <div className="relative group z-70">
+          <div className="relative group">
             {/* Glow effect */}
             <div className="absolute inset-0 bg-blue-400 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-300 blur-xl scale-150"></div>
             
@@ -69,11 +69,6 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
                 Lost HDD
               </div>
             </div>
-
-            {/* Click hint */}
-            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-white text-xs opacity-70 group-hover:opacity-100 transition-opacity">
-              Click to explore
-            </div>
           </div>
         </div>
       )}
@@ -82,12 +77,12 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
       <div className="absolute inset-0">
         {/* Single Tree - Right side (Green parts only) */}
         <div 
-          className={`absolute right-20 top-0 w-40 h-full bg-cover bg-no-repeat transform-gpu transition-all duration-3000 ease-in ${
-            animationStarted ? '-rotate-90 -translate-x-32 translate-y-40' : 'rotate-0'
+          className={`absolute right-12 top-0 w-80 h-full bg-cover bg-no-repeat transform-gpu transition-all duration-3000 ease-in ${
+            animationStarted ? '-rotate-90 -translate-x-64 translate-y-72' : 'rotate-0'
           }`}
           style={{
             backgroundImage: `url(/img/ui/wallpaper.jpg)`,
-            backgroundPosition: '85% center',
+            backgroundPosition: '85% 40%',
             clipPath: treesHaveFallen ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' : 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
             filter: 'hue-rotate(0deg) saturate(2) contrast(1.2)',
             // Mask to only show green areas (trees/foliage)
