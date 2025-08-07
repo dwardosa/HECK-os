@@ -25,7 +25,7 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
       // Trees finish falling after 3s animation
       const treeFallTimer = setTimeout(() => {
         setTreesHaveFallen(true);
-      }, 3000);
+      }, 500);
 
       return () => clearTimeout(treeFallTimer);
     }
