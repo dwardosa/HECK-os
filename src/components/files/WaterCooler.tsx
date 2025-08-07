@@ -8,7 +8,7 @@ export default function WaterCooler({ onHover }: WaterCoolerProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
-  const message = "NEXT OFFICE PARTY INFO HERE!";
+  const message = "STAFF PARTY ANNOUCEMENT COMING SOON!";
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -23,7 +23,7 @@ export default function WaterCooler({ onHover }: WaterCoolerProps) {
 
   return (
     <div 
-      className="fixed bottom-32 right-1/4 z-100 cursor-pointer select-none transition-opacity duration-500 hover:opacity-100 opacity-75"
+      className="fixed bottom-32 right-8 z-60 cursor-pointer select-none transition-opacity duration-500 hover:opacity-100 opacity-75"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -36,7 +36,6 @@ export default function WaterCooler({ onHover }: WaterCoolerProps) {
         >
           {message}
           {/* Arrow pointing down */}
-          <div className="absolute -bottom-1 right-4 w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-blue-500"></div>
         </div>
       )}
 
