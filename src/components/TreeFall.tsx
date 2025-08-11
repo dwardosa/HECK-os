@@ -22,10 +22,10 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
     if (animationStarted) {
       // Show hard drive immediately when animation starts (it's behind the tree)
       setShowHardDrive(true);
-      // Trees finish falling after 3s animation
+      // Trees finish falling after 3s animation completes
       const treeFallTimer = setTimeout(() => {
         setTreesHaveFallen(true);
-      }, 500);
+      }, 3000);
 
       return () => clearTimeout(treeFallTimer);
     }
@@ -73,39 +73,24 @@ export default function TreeFall({ onHardDriveClick }: TreeFallProps) {
         </div>
       )}
 
-      {/* Animated Tree Layer (Green parts only) */}
+      {/* Animated Tree Layer (Using tree.gif) */}
       <div className="absolute inset-0">
-        {/* Single Tree - Right side (Green parts only) */}
+        {/* Single Tree - Right side (tree.gif) */}
         <div 
-          className={`absolute right-12 top-0 w-80 h-full bg-cover bg-no-repeat transform-gpu transition-all duration-3000 ease-in ${
-            animationStarted ? '-rotate-90 -translate-x-64 translate-y-72' : 'rotate-0'
+          className={`absolute right-28 top-1/4 w-40 h-56 transform-gpu transition-all duration-3000 ease-in ${
+            animationStarted ? 'rotate-90 translate-x-8 translate-y-32' : 'rotate-0'
           }`}
-          style={{
-            backgroundImage: `url(/img/ui/wallpaper.jpg)`,
-            backgroundPosition: '85% 40%',
-            clipPath: treesHaveFallen ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' : 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-            filter: 'hue-rotate(0deg) saturate(2) contrast(1.2)',
-            // Mask to only show green areas (trees/foliage)
-            WebkitMask: `
-              radial-gradient(circle at 20% 30%, black 40%, transparent 50%),
-              radial-gradient(circle at 40% 20%, black 35%, transparent 45%),
-              radial-gradient(circle at 60% 40%, black 30%, transparent 40%),
-              radial-gradient(circle at 80% 25%, black 25%, transparent 35%),
-              radial-gradient(circle at 30% 60%, black 20%, transparent 30%),
-              radial-gradient(circle at 70% 70%, black 15%, transparent 25%)
-            `,
-            mask: `
-              radial-gradient(circle at 20% 30%, black 40%, transparent 50%),
-              radial-gradient(circle at 40% 20%, black 35%, transparent 45%),
-              radial-gradient(circle at 60% 40%, black 30%, transparent 40%),
-              radial-gradient(circle at 80% 25%, black 25%, transparent 35%),
-              radial-gradient(circle at 30% 60%, black 20%, transparent 30%),
-              radial-gradient(circle at 70% 70%, black 15%, transparent 25%)
-            `,
-            WebkitMaskComposite: 'add',
-            maskComposite: 'add'
-          }}
-        />
+        >
+          <img 
+            src="/img/ui/tree.gif" 
+            alt="Falling Tree"
+            className="w-full h-full object-cover"
+            style={{
+              clipPath: treesHaveFallen ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' : 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+              filter: 'hue-rotate(0deg) saturate(1.5) contrast(1.1)',
+            }}
+          />
+        </div>
       </div>
 
       {/* Particle Effects */}
