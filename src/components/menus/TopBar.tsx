@@ -155,9 +155,9 @@ const TopBar = (props: TopBarProps) => {
         <TopBarItem hideOnMobile={true}>
           <Battery />
         </TopBarItem>
-        <TopBarItem ref={spotlightBtnRef} onClick={props.toggleSpotlight}>
+        {/* <TopBarItem ref={spotlightBtnRef} onClick={props.toggleSpotlight}>
           <span className="i-bx:search text-[17px]" />
-        </TopBarItem>
+        </TopBarItem> */}
 
         <TopBarItem>
           <span>{format(state.date, "eee MMM d")}</span>

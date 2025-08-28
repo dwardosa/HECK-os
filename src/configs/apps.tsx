@@ -1,5 +1,7 @@
 import { appBarHeight } from "~/utils";
 import type { AppsData } from "~/types";
+import Terminal from "~/components/apps/Terminal";
+import DiskRecovery from "~/components/apps/DiskRecovery";
 
 const apps: AppsData[] = [
   // {
@@ -77,6 +79,19 @@ const apps: AppsData[] = [
     y: 50,
     img: "img/icons/terminal.png",
     content: <Terminal />
+  },
+  {
+    id: "disk-recovery",
+    title: "Disk Recovery",
+    desktop: true,
+    width: 700,
+    height: 520,
+    minWidth: 520,
+    minHeight: 360,
+    x: -60,
+    y: 40,
+    img: "img/icons/recovery.png",
+    content: <DiskRecovery />
   }
 ];
 
