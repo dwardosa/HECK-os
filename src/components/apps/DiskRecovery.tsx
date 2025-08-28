@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 // Ensure the UMD steganography library executes and attaches to window/globalThis
-import '~/library/steganography.js'
+import steg from '~/library/steg'
 import styles from '~/terminal/App/App.module.scss'
 
 type DecodeState = 'idle' | 'loading' | 'done' | 'error'
@@ -12,10 +12,7 @@ export default function DiskRecovery() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const steg: any = useMemo(() => {
-    const g: any = (typeof globalThis !== 'undefined') ? globalThis : (typeof window !== 'undefined' ? window : {})
-    return g.steg
-  }, [])
+  const lib = steg
 
   const onSelectFile = useCallback(async (file: File) => {
     setError('')
@@ -38,11 +35,11 @@ export default function DiskRecovery() {
         image.src = url
       })
 
-      if (!steg || typeof steg.decode !== 'function') {
+  if (!lib || typeof lib.decode !== 'function') {
         throw new Error('Steganography library not available')
       }
 
-      const result: string = steg.decode(img)
+  const result: string = lib.decode(img)
       setMessage(result || '(No hidden message found)')
       setStatus('done')
     } catch (e: any) {
