@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 // Ensure the UMD steganography library executes and attaches to window/globalThis
-import steg from '~/library/steg'
+import bundledSteg from '~/library/steg'
 import styles from '~/terminal/App/App.module.scss'
 
 type DecodeState = 'idle' | 'loading' | 'done' | 'error'
@@ -12,7 +12,10 @@ export default function DiskRecovery() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const lib = steg
+  const lib = useMemo(() => {
+    const g: any = (typeof globalThis !== 'undefined') ? globalThis : (typeof window !== 'undefined' ? window : {})
+    return g.steg || bundledSteg
+  }, [])
 
   const onSelectFile = useCallback(async (file: File) => {
     setError('')
@@ -46,7 +49,7 @@ export default function DiskRecovery() {
       setError(e?.message || 'Decoding failed')
       setStatus('error')
     }
-  }, [steg])
+  }, [lib])
 
   const onInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
