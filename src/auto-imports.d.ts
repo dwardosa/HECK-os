@@ -10,6 +10,7 @@ declare global {
   const Battery: typeof import('./components/menus/Battery')['default']
   const Bear: typeof import('./components/apps/Bear')['default']
   const DesktopFile: typeof import('./components/files/DesktopFile')['default']
+  const DiskRecovery: typeof import('./components/apps/DiskRecovery')['default']
   const Dock: typeof import('./components/dock/Dock')['default']
   const DockItem: typeof import('./components/dock/DockItem')['default']
   const FaceTime: typeof import('./components/apps/FaceTime')['default']
