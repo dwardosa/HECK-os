@@ -91,7 +91,7 @@ export default function DiskRecovery() {
           {!previewUrl && (
             <div style={{ textAlign: 'center', color: '#bbb' }}>
               <div style={{ fontSize: 18, marginBottom: 6 }}>Disk Recovery</div>
-              <div style={{ fontSize: 13, opacity: 0.8 }}>Click to select or drop a stego image here</div>
+              <div style={{ fontSize: 13, opacity: 0.8 }}>Click to select or drop a lost HECK archive image here</div>
             </div>
           )}
           {previewUrl && (
